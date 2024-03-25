@@ -2,6 +2,7 @@
 // import "@babylonjs/loaders/glTF";
 // const { RotationXBlock } = require("@babylonjs/core");
 
+
 const canvas = document.getElementById("renderCanvas"); // Get the canvas element
 var startRenderLoop = function (engine, canvas) {
   engine.runRenderLoop(function () {
@@ -85,59 +86,68 @@ const createScene = function () {
   ground.position = new BABYLON.Vector3(0, -3, 0);
 
   // Box creation
-  const box = BABYLON.SceneLoader.ImportMeshAsync(
+  const box = BABYLON.SceneLoader.ImportMesh(
     "",
     "models/",
     "pumpkinBucketCarved.glb",
     scene,
-    function (newMeshes) {
-      const box = newMeshes[0];
+    function (meshes) {
+      // scene.createDefaultCameraOrLight(true, true, true);
+      // scene.createDefaultEnvironment();
+      console.log(meshes[0].id);
+      const boxMat = new BABYLON.StandardMaterial("boxMat", scene);
+
+      boxMat.diffuseTexture = new BABYLON.Texture(
+        "textures/speckles.jpg",
+        scene
+      );
+
+      box.material = boxMat;
+
+      const framerate = 30;
+      //Animations
+      const anim1 = new BABYLON.Animation(
+        "anim1",
+        "rotation.y",
+        framerate,
+        BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
+      );
+
+      const keyframes = [];
+      keyframes.push({
+        frame: 0,
+        value: 0,
+      });
+
+      keyframes.push({
+        frame: 30,
+        value: 2 * Math.PI,
+      });
+
+      anim1.setKeys(keyframes);
+      scene.beginDirectAnimation(box, anim1, 0, 30, true);
+      scene.beginAnimation(anim1, 0, 30, true);
+
+      const shadowGenerator = new BABYLON.ShadowGenerator(2048, light0);
+      shadowGenerator.useBlurCloseExponentialShadowMap = true;
+      box.receiveShadows = true;
+
+      let size = document.getElementById("inp1");
+      box.size = BABYLON.Vector3(5, size, 5)
     }
   );
+  box.name = "box";
+
+
+  // box.position = BABYLON.Vector3(50,5,5);
 
   // const box = BABYLON.MeshBuilder.CreateBox(
   //   "box",
   //   { width: 5, height: 5, depth: 5 },
   //   scene
   // );
-  const boxMat = new BABYLON.StandardMaterial("boxMat", scene);
 
-  boxMat.diffuseTexture = new BABYLON.Texture("textures/speckles.jpg", scene);
-
-  box.material = boxMat;
-
-  const framerate = 30;
-  //Animations
-  const anim1 = new BABYLON.Animation(
-    "anim1",
-    "rotation.y",
-    framerate,
-    BABYLON.Animation.ANIMATIONTYPE_FLOAT,
-    BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
-  );
-
-  const keyframes = [];
-  keyframes.push({
-    frame: 0,
-    value: 0,
-  });
-
-  // keyframes.push({
-  //         frame: framerate,
-  //         value: 2 * framerate
-  // })
-
-  keyframes.push({
-    frame: 30,
-    value: 2 * Math.PI,
-  });
-
-  anim1.setKeys(keyframes);
-  scene.beginDirectAnimation(box, [anim1], 0, 2 * 30, true);
-
-  const shadowGenerator = new BABYLON.ShadowGenerator(2048, light0);
-  shadowGenerator.useBlurCloseExponentialShadowMap = true;
-  box.receiveShadows = true;
   // shadowGenerator.addShadowCaster(box);
   // const shadowGenerator = new BABYLON.ShadowGenerator(2048, light0);
   // shadowGenerator.getShadowMap().renderList.push(box);
@@ -148,9 +158,9 @@ const createScene = function () {
   // shadowGenerator.blurKernel = 64;
   // shadowGenerator.blurScale = 10
   // light0.shadowEnabled = true;
-  ground.receiveShadows = true;
+
   // box.receiveShadows = true;
-  // scene.beginAnimation(anim1, 0, 30, true);
+  
   return scene;
 };
 window.initFunction = async function () {
