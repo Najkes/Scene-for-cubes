@@ -18,7 +18,6 @@ html, body{
 #size{
     height: 4vh;
     width: 10vw;
-    background-color: gray;
     display: flex;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     padding: 1%;
@@ -30,7 +29,6 @@ html, body{
 }
 
 #size:hover{
-    background-color: rgb(94, 94, 94);
     scale: 105%;
 }
 
@@ -41,6 +39,8 @@ html, body{
     width: 10%;
     text-align: center;
     background: rgb(51,51,76);
+    padding: .5%;
+    border-radius: 20px;
 
 }
 
@@ -50,4 +50,291 @@ a{
     font-size:2.2vh;
     margin-top: 10%;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+ /*INPUT STYLE */
+input[type=range] {
+    width: 100%;
+    margin: 6.05px 0;
+    background-color: transparent;
+    -webkit-appearance: none;
+  }
+  input[type=range]:focus {
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    background: #5593c2;
+    border: 0;
+    border-radius: 16.1px;
+    width: 100%;
+    height: 13.9px;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    margin-top: -6.05px;
+    width: 16px;
+    height: 26px;
+    background: #969696;
+    border: 2px solid #6e6e6e;
+    border-radius: 23px;
+    cursor: pointer;
+    -webkit-appearance: none;
+  }
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #86b2d4;
+  }
+  input[type=range]::-moz-range-track {
+    background: #5593c2;
+    border: 0;
+    border-radius: 16.1px;
+    width: 100%;
+    height: 13.9px;
+    cursor: pointer;
+  }
+  input[type=range]::-moz-range-thumb {
+    width: 16px;
+    height: 26px;
+    background: #969696;
+    border: 2px solid #6e6e6e;
+    border-radius: 23px;
+    cursor: pointer;
+  }
+  input[type=range]::-ms-track {
+    background: transparent;
+    border-color: transparent;
+    border-width: 6.05px 0;
+    color: transparent;
+    width: 100%;
+    height: 13.9px;
+    cursor: pointer;
+  }
+  input[type=range]::-ms-fill-lower {
+    background: #38719d;
+    border: 0;
+    border-radius: 32.2px;
+  }
+  input[type=range]::-ms-fill-upper {
+    background: #5593c2;
+    border: 0;
+    border-radius: 32.2px;
+  }
+  input[type=range]::-ms-thumb {
+    width: 16px;
+    height: 26px;
+    background: #969696;
+    border: 2px solid #6e6e6e;
+    border-radius: 23px;
+    cursor: pointer;
+    margin-top: 0px;
+    /*Needed to keep the Edge thumb centred*/
+  }
+  input[type=range]:focus::-ms-fill-lower {
+    background: #5593c2;
+  }
+  input[type=range]:focus::-ms-fill-upper {
+    background: #86b2d4;
+  }
+  /*TODO: Use one of the selectors from https://stackoverflow.com/a/20541859/7077589 and figure out
+  how to remove the virtical space around the range input in IE*/
+  @supports (-ms-ime-align:auto) {
+    /* Pre-Chromium Edge only styles, selector taken from hhttps://stackoverflow.com/a/32202953/7077589 */
+    input[type=range] {
+      margin: 0;
+      /*Edge starts the margin from the thumb, not the track as other browsers do*/
+    }
+  }
+
+  input[type=range] {
+    width: 100%;
+    margin: 6.05px 0;
+    background-color: transparent;
+    -webkit-appearance: none;
+  }
+  input[type=range]:focus {
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    background: #5593c2;
+    border: 0;
+    border-radius: 16.1px;
+    width: 100%;
+    height: 13.9px;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    margin-top: -6.05px;
+    width: 16px;
+    height: 26px;
+    background: #969696;
+    border: 2px solid #6e6e6e;
+    border-radius: 23px;
+    cursor: pointer;
+    -webkit-appearance: none;
+  }
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #86b2d4;
+  }
+  input[type=range]::-moz-range-track {
+    background: #5593c2;
+    border: 0;
+    border-radius: 16.1px;
+    width: 100%;
+    height: 13.9px;
+    cursor: pointer;
+  }
+  input[type=range]::-moz-range-thumb {
+    width: 16px;
+    height: 26px;
+    background: #969696;
+    border: 2px solid #6e6e6e;
+    border-radius: 23px;
+    cursor: pointer;
+  }
+  input[type=range]::-ms-track {
+    background: transparent;
+    border-color: transparent;
+    border-width: 6.05px 0;
+    color: transparent;
+    width: 100%;
+    height: 13.9px;
+    cursor: pointer;
+  }
+  input[type=range]::-ms-fill-lower {
+    background: #38719d;
+    border: 0;
+    border-radius: 32.2px;
+  }
+  input[type=range]::-ms-fill-upper {
+    background: #5593c2;
+    border: 0;
+    border-radius: 32.2px;
+  }
+  input[type=range]::-ms-thumb {
+    width: 16px;
+    height: 26px;
+    background: #969696;
+    border: 2px solid #6e6e6e;
+    border-radius: 23px;
+    cursor: pointer;
+    margin-top: 0px;
+    /*Needed to keep the Edge thumb centred*/
+  }
+  input[type=range]:focus::-ms-fill-lower {
+    background: #5593c2;
+  }
+  input[type=range]:focus::-ms-fill-upper {
+    background: #86b2d4;
+  }
+  /*TODO: Use one of the selectors from https://stackoverflow.com/a/20541859/7077589 and figure out
+  how to remove the virtical space around the range input in IE*/
+  @supports (-ms-ime-align:auto) {
+    /* Pre-Chromium Edge only styles, selector taken from hhttps://stackoverflow.com/a/32202953/7077589 */
+    input[type=range] {
+      margin: 0;
+      /*Edge starts the margin from the thumb, not the track as other browsers do*/
+    }
+  }
+
+  input[type=range] {
+    width: 100%;
+    margin: 6.05px 0;
+    background-color: transparent;
+    -webkit-appearance: none;
+  }
+  input[type=range]:focus {
+    outline: none;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    background: #5593c2;
+    border: 0;
+    border-radius: 16.1px;
+    width: 100%;
+    height: 13.9px;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    margin-top: -6.05px;
+    width: 16px;
+    height: 26px;
+    background: #969696;
+    border: 2px solid #6e6e6e;
+    border-radius: 23px;
+    cursor: pointer;
+    -webkit-appearance: none;
+  }
+  input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #86b2d4;
+  }
+  input[type=range]::-moz-range-track {
+    background: #5593c2;
+    border: 0;
+    border-radius: 16.1px;
+    width: 100%;
+    height: 13.9px;
+    cursor: pointer;
+  }
+  input[type=range]::-moz-range-thumb {
+    width: 16px;
+    height: 26px;
+    background: #969696;
+    border: 2px solid #6e6e6e;
+    border-radius: 23px;
+    cursor: pointer;
+  }
+  input[type=range]::-ms-track {
+    background: transparent;
+    border-color: transparent;
+    border-width: 6.05px 0;
+    color: transparent;
+    width: 100%;
+    height: 13.9px;
+    cursor: pointer;
+  }
+  input[type=range]::-ms-fill-lower {
+    background: #38719d;
+    border: 0;
+    border-radius: 32.2px;
+  }
+  input[type=range]::-ms-fill-upper {
+    background: #5593c2;
+    border: 0;
+    border-radius: 32.2px;
+  }
+  input[type=range]::-ms-thumb {
+    width: 16px;
+    height: 26px;
+    background: #969696;
+    border: 2px solid #6e6e6e;
+    border-radius: 23px;
+    cursor: pointer;
+    margin-top: 0px;
+    /*Needed to keep the Edge thumb centred*/
+  }
+  input[type=range]:focus::-ms-fill-lower {
+    background: #5593c2;
+  }
+  input[type=range]:focus::-ms-fill-upper {
+    background: #86b2d4;
+  }
+  /*TODO: Use one of the selectors from https://stackoverflow.com/a/20541859/7077589 and figure out
+  how to remove the virtical space around the range input in IE*/
+  @supports (-ms-ime-align:auto) {
+    /* Pre-Chromium Edge only styles, selector taken from hhttps://stackoverflow.com/a/32202953/7077589 */
+    input[type=range] {
+      margin: 0;
+      /*Edge starts the margin from the thumb, not the track as other browsers do*/
+    }
+  }
+
+  
 

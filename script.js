@@ -1,8 +1,7 @@
-// const { shadowMapFragment } = require("@babylonjs/core/Shaders/ShadersInclude/shadowMapFragment");
-// import "@babylonjs/loaders/glTF";
-// const { RotationXBlock } = require("@babylonjs/core");
-
-
+var slider = document.getElementById("#inp1")
+slider.onInput = function() {
+  console.log(this.value);
+}
 const canvas = document.getElementById("renderCanvas"); // Get the canvas element
 var startRenderLoop = function (engine, canvas) {
   engine.runRenderLoop(function () {
@@ -78,11 +77,13 @@ const createScene = function () {
   light0.diffuse = new BABYLON.Color3(0.53, 0.79, 1);
   light0.specular = new BABYLON.Color3(0.53, 0.79, 1);
 
+
   const ground = BABYLON.MeshBuilder.CreateGround(
     "ground",
     { width: 25, height: 25 },
     scene
   );
+  
   ground.position = new BABYLON.Vector3(0, -3, 0);
 
   // Box creation
@@ -91,16 +92,28 @@ const createScene = function () {
     "models/",
     "pumpkinBucketCarved.glb",
     scene,
-    function (meshes) {
-      // scene.createDefaultCameraOrLight(true, true, true);
-      // scene.createDefaultEnvironment();
-      console.log(meshes[0].id);
+    function (newMeshes) {
+      console.log(newMeshes[0].id);
       const boxMat = new BABYLON.StandardMaterial("boxMat", scene);
 
       boxMat.diffuseTexture = new BABYLON.Texture(
         "textures/speckles.jpg",
         scene
       );
+
+
+
+
+      
+    //   slider.onPointerUp = function(evt, pickResult) {
+    //     // if the click hits the ground object, we change the impact position
+    //     if (pickResult.hit) {
+    //       newMeshes[0].scaling.x = 25 + slider.value;
+    //       newMeshes[0].scaling.y = 25 + slider.value;
+    //       newMeshes[0].scaling.z = 25 + slider.value;
+    //        console.log("HIT")
+    //     }
+    // };
 
       box.material = boxMat;
 
@@ -133,8 +146,7 @@ const createScene = function () {
       shadowGenerator.useBlurCloseExponentialShadowMap = true;
       box.receiveShadows = true;
 
-      let size = document.getElementById("inp1");
-      box.size = BABYLON.Vector3(5, size, 5)
+
     }
   );
   box.name = "box";
@@ -160,7 +172,7 @@ const createScene = function () {
   // light0.shadowEnabled = true;
 
   // box.receiveShadows = true;
-  
+
   return scene;
 };
 window.initFunction = async function () {
@@ -188,3 +200,6 @@ initFunction().then(() => {
 window.addEventListener("resize", function () {
   engine.resize();
 });
+
+
+
