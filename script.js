@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+var slider = document.getElementById("inp1")
+slider.onInput = function() {
+  console.log(this.value);
+}
+>>>>>>> baa5903516784b9fa8f4695e3be05e404325725c
 const canvas = document.getElementById("renderCanvas"); // Get the canvas element
 var startRenderLoop = function (engine, canvas) {
   engine.runRenderLoop(function () {
