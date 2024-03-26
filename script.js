@@ -1,4 +1,4 @@
-var slider = document.getElementById("#inp1")
+var slider = document.getElementById("inp1")
 slider.onInput = function() {
   console.log(this.value);
 }
