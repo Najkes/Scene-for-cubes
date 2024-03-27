@@ -118,6 +118,11 @@ const createScene = function () {
         newMeshes[0].material = boxMat;
         console.log(newMeshes[0].position.y);
         const boxMat = new BABYLON.StandardMaterial("boxMat",scene)
+        var godrays = new BABYLON.VolumetricLightScatteringPostProcess('godrays', 1.0, camera, newMeshes[0], 100, BABYLON.Texture.BILINEAR_SAMPLINGMODE, engine, false);
+        godrays.mesh.material.diffuseTexture.hasAlpha = true;
+        godrays.position = light0.position;
+        godrays.mesh.scaling = new BABYLON.Vector3(350, 350, 350);
+        
       };
       const shadowGenerator = new BABYLON.ShadowGenerator(2048, light0);
       shadowGenerator.addShadowCaster(newMeshes[0]);

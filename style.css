@@ -32,6 +32,10 @@ html, body{
     scale: 105%;
 }
 
+#elements{
+  display: flex;
+}
+
 .block{
     /* background-color: rgb(51,51,76); */
     margin-left: 1%;
@@ -73,7 +77,12 @@ a{
   background-color: rgb(97, 58, 88);
 }
 
-
+/* #lightcolor{
+  display: flex;
+  width: 50%;
+  height: 50%;
+  
+} */
 
 
 
@@ -356,5 +365,28 @@ input[type=range] {
     }
   }
 
-  
 
+
+
+  .input-color-container {
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+    background-color: white;
+    border: 1px solid #D4D9E2;
+    border: solid 2px #ddd;
+    border-radius: 40px;
+}
+.input-color {
+    appearance: none;
+    background: transparent;
+    border: none;
+    height: 35px;
+    width: 35px;
+    cursor: pointer;
+    
+}
+.input-color::-webkit-color-swatch {
+        border-radius: 50%;
+        border: none;
+    }
