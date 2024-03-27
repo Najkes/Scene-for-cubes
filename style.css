@@ -32,11 +32,11 @@ html, body{
     scale: 105%;
 }
 
-#block1{
+.block{
     /* background-color: rgb(51,51,76); */
     margin-left: 1%;
     margin-top: 1%;
-    width: 10%;
+    width: 12%;
     text-align: center;
     background: rgb(51,51,76);
     padding: .5%;
@@ -51,7 +51,27 @@ a{
     margin-top: 10%;
 }
 
+#animbeg{
+  margin-left: 1%;
+  margin-top: 1%;
+  width: 13%;
+  text-align: center;
+  background: rgb(51,51,76);
+  padding: .5%;
+  border-radius: 20px;
+  box-shadow: none;
+  border: 0;
+  color:rgb(190, 190, 190);
+}
 
+#animbeg:hover{
+  scale: 105%;
+  background-color: rgb(36, 36, 53);
+}
+
+#animbeg:active{
+  background-color: rgb(97, 58, 88);
+}
 
 
 

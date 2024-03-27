@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-=======
-var slider = document.getElementById("inp1")
-slider.onInput = function() {
-  console.log(this.value);
-}
->>>>>>> baa5903516784b9fa8f4695e3be05e404325725c
+var slider = document.getElementById("inp1");
+var abutton = document.getElementById("animbeg");
+var scolor = document.getElementById("lightcolor");
+
 const canvas = document.getElementById("renderCanvas"); // Get the canvas element
 var startRenderLoop = function (engine, canvas) {
   engine.runRenderLoop(function () {
@@ -66,7 +63,20 @@ const createScene = function () {
   lightSphere0.material = new BABYLON.StandardMaterial("red", scene);
   lightSphere0.material.diffuseColor = new BABYLON.Color3(0, 0, 0);
   lightSphere0.material.specularColor = new BABYLON.Color3(0, 0, 0);
-  lightSphere0.material.emissiveColor = new BABYLON.Color3(0.53, 0.79, 1);
+  lightSphere0.material.emissiveColor = new BABYLON.Color3.FromHexString(
+    scolor.value
+  );
+  light0.diffuse = new BABYLON.Color3.FromHexString(scolor.value);
+  light0.specular = new BABYLON.Color3.FromHexString(scolor.value);
+  light0.GlowLayer = new BABYLON.GlowLayer("glow", scene);
+  document.getElementById("lightcolor").onchange = function () {
+    console.log(scolor.value);
+    lightSphere0.material.emissiveColor = new BABYLON.Color3.FromHexString(
+      scolor.value
+    );
+    light0.diffuse = new BABYLON.Color3.FromHexString(scolor.value);
+    light0.specular = new BABYLON.Color3.FromHexString(scolor.value);
+  };
 
   // var sphere = BABYLON.Mesh.CreateSphere("Sphere", 16, 3, scene);
 
@@ -76,18 +86,13 @@ const createScene = function () {
   // sphere.material = material;
   material.maxSimultaneousLights = 16;
 
-  // Lights colors
-  light0.diffuse = new BABYLON.Color3(0.53, 0.79, 1);
-  light0.specular = new BABYLON.Color3(0.53, 0.79, 1);
-
   const ground = BABYLON.MeshBuilder.CreateGround(
     "ground",
     { width: 25, height: 25 },
     scene
   );
 
-  ground.position = new BABYLON.Vector3(0, -3, 0);
-
+  ground.position = new BABYLON.Vector3(0, 0, 0);
   // Box creation
   const box = BABYLON.SceneLoader.ImportMesh(
     "",
@@ -96,27 +101,37 @@ const createScene = function () {
     scene,
     function (newMeshes) {
       const boxMat = new BABYLON.StandardMaterial("boxMat", scene);
-
       boxMat.diffuseTexture = new BABYLON.Texture(
         "textures/speckles.jpg",
-        
         scene
       );
+      newMeshes[0].position.y = parseFloat(ground.position.y) + parseFloat(3);
       const slider = document.getElementById("inp1");
       slider.oninput = function () {
         newMeshes[0].scaling.x = this.value;
         newMeshes[0].scaling.y = this.value;
         newMeshes[0].scaling.z = this.value;
         console.log(ground.position.y);
-        newMeshes[0].position.y = +ground.position.y + +this.value + +2;
+        newMeshes[0].position.y = 1;
+        newMeshes[0].position.y =
+          parseFloat(newMeshes[0].position.y) + parseFloat(this.value) * 2;
         newMeshes[0].material = boxMat;
-        console.log(newMeshes[0].position.y)
+        console.log(newMeshes[0].position.y);
+        const boxMat = new BABYLON.StandardMaterial("boxMat",scene)
       };
-
       const shadowGenerator = new BABYLON.ShadowGenerator(2048, light0);
       shadowGenerator.addShadowCaster(newMeshes[0]);
-      shadowGenerator.getShadowMap().renderList.push(newMeshes[0]);
+      // shadowGenerator.getShadowMap().renderList.push(newMeshes[0]);
+      shadowGenerator.bias = 0.001;
+      shadowGenerator.normalBias = 0.02;
+      light0.shadowMaxZ = 100;
+      light0.shadowMinZ = 1;
+      shadowGenerator.useContactHardeningShadow = true;
+      shadowGenerator.contactHardeningLightSizeUVRatio = 0.11;
+      shadowGenerator.setDarkness(0.5);
       ground.receiveShadows = true;
+      newMeshes[0].receiveShadows = true;
+      
 
       const framerate = 30;
       //Animations
@@ -127,8 +142,8 @@ const createScene = function () {
         BABYLON.Animation.ANIMATIONTYPE_FLOAT,
         BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
       );
-
       const keyframes = [];
+
       keyframes.push({
         frame: 0,
         value: 0,
@@ -140,11 +155,15 @@ const createScene = function () {
       });
 
       anim1.setKeys(keyframes);
-      scene.beginDirectAnimation(newMeshes[0], anim1, 0, 30, true);
-      scene.beginAnimation(anim1, 0, 30, true);
-
+      newMeshes[0].animations.push(anim1);
+      document.getElementById("animbeg").onclick = function () {
+        alert("button was clicked");
+        scene.beginAnimation(newMeshes[0], 0, 30, true);
+      };
+      console.log(abutton.value);
     }
   );
+
   return scene;
 };
 window.initFunction = async function () {
