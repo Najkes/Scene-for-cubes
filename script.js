@@ -108,6 +108,7 @@ const createScene = function () {
       newMeshes[0].position.y = parseFloat(ground.position.y) + parseFloat(3);
       const slider = document.getElementById("inp1");
       slider.oninput = function () {
+        const box = newMeshes[0]
         newMeshes[0].scaling.x = this.value;
         newMeshes[0].scaling.y = this.value;
         newMeshes[0].scaling.z = this.value;
@@ -122,7 +123,6 @@ const createScene = function () {
         godrays.mesh.material.diffuseTexture.hasAlpha = true;
         godrays.position = light0.position;
         godrays.mesh.scaling = new BABYLON.Vector3(350, 350, 350);
-        
       };
       const shadowGenerator = new BABYLON.ShadowGenerator(2048, light0);
       shadowGenerator.addShadowCaster(newMeshes[0]);
@@ -166,8 +166,10 @@ const createScene = function () {
         scene.beginAnimation(newMeshes[0], 0, 30, true);
       };
       console.log(abutton.value);
+      console.log(box.id);
     }
   );
+
 
   return scene;
 };
@@ -203,3 +205,12 @@ for (let e of document.querySelectorAll('input[type="range"].slider-progress')) 
   e.style.setProperty('--max', e.max == '' ? '100' : e.max);
   e.addEventListener('input', () => e.style.setProperty('--value', e.value));
 }
+
+canvas.addEventListener("keydown", (e)=>{
+  if(e.keyCode == 37){
+    gltf.rotation.y -= 0.05;
+  }
+  else if(e.keyCode == 39){
+    gltf.rotation.y += 0.05;
+  }
+});
