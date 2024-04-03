@@ -1,6 +1,7 @@
 var slider = document.getElementById("inp1");
 var abutton = document.getElementById("animbeg");
 var scolor = document.getElementById("lightcolor");
+var checkbox =  document.getElementById('checkbox1');
 
 const canvas = document.getElementById("renderCanvas"); // Get the canvas element
 var startRenderLoop = function (engine, canvas) {
@@ -108,7 +109,7 @@ const createScene = function () {
       newMeshes[0].position.y = parseFloat(ground.position.y) + parseFloat(3);
       const slider = document.getElementById("inp1");
       slider.oninput = function () {
-        const box = newMeshes[0]
+        const box = newMeshes[0];
         newMeshes[0].scaling.x = this.value;
         newMeshes[0].scaling.y = this.value;
         newMeshes[0].scaling.z = this.value;
@@ -118,11 +119,23 @@ const createScene = function () {
           parseFloat(newMeshes[0].position.y) + parseFloat(this.value) * 2;
         newMeshes[0].material = boxMat;
         console.log(newMeshes[0].position.y);
-        const boxMat = new BABYLON.StandardMaterial("boxMat",scene)
-        var godrays = new BABYLON.VolumetricLightScatteringPostProcess('godrays', 1.0, camera, newMeshes[0], 100, BABYLON.Texture.BILINEAR_SAMPLINGMODE, engine, false);
+        const boxMat = new BABYLON.StandardMaterial("boxMat", scene);
+        var godrays = new BABYLON.VolumetricLightScatteringPostProcess(
+          "godrays",
+          1.0,
+          camera,
+          light0,
+          100,
+          BABYLON.Texture.BILINEAR_SAMPLINGMODE,
+          engine,
+          false
+        );
         godrays.mesh.material.diffuseTexture.hasAlpha = true;
-        godrays.position = light0.position;
         godrays.mesh.scaling = new BABYLON.Vector3(350, 350, 350);
+        // );
+        // godrays.mesh.material.diffuseTexture.hasAlpha = true;
+        godrays.position = light0.position;
+        // godrays.mesh.scaling = new BABYLON.Vector3(350, 350, 350);
       };
       const shadowGenerator = new BABYLON.ShadowGenerator(2048, light0);
       shadowGenerator.addShadowCaster(newMeshes[0]);
@@ -136,7 +149,23 @@ const createScene = function () {
       shadowGenerator.setDarkness(0.5);
       ground.receiveShadows = true;
       newMeshes[0].receiveShadows = true;
-      
+
+      var skybox = BABYLON.MeshBuilder.CreateBox(
+        "skyBox",
+        { size: 1000.0 },
+        scene
+      );
+      var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+      skyboxMaterial.backFaceCulling = false;
+      skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture(
+        "textures/skybox",
+        scene
+      );
+      skyboxMaterial.reflectionTexture.coordinatesMode =
+        BABYLON.Texture.SKYBOX_MODE;
+      skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+      skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+      skybox.material = skyboxMaterial;
 
       const framerate = 30;
       //Animations
@@ -167,9 +196,12 @@ const createScene = function () {
       };
       console.log(abutton.value);
       console.log(box.id);
+
+      let divFps = document.getElementById("fps");
+      divFps.innerHTML = engine.getFps().toFixed() + " fps";
+
     }
   );
-
 
   return scene;
 };
@@ -199,18 +231,19 @@ window.addEventListener("resize", function () {
   engine.resize();
 });
 
-for (let e of document.querySelectorAll('input[type="range"].slider-progress')) {
-  e.style.setProperty('--value', e.value);
-  e.style.setProperty('--min', e.min == '' ? '0' : e.min);
-  e.style.setProperty('--max', e.max == '' ? '100' : e.max);
-  e.addEventListener('input', () => e.style.setProperty('--value', e.value));
+for (let e of document.querySelectorAll(
+  'input[type="range"].slider-progress'
+)) {
+  e.style.setProperty("--value", e.value);
+  e.style.setProperty("--min", e.min == "" ? "0" : e.min);
+  e.style.setProperty("--max", e.max == "" ? "100" : e.max);
+  e.addEventListener("input", () => e.style.setProperty("--value", e.value));
 }
 
-canvas.addEventListener("keydown", (e)=>{
-  if(e.keyCode == 37){
+canvas.addEventListener("keydown", (e) => {
+  if (e.keyCode == 37) {
     gltf.rotation.y -= 0.05;
-  }
-  else if(e.keyCode == 39){
+  } else if (e.keyCode == 39) {
     gltf.rotation.y += 0.05;
   }
 });

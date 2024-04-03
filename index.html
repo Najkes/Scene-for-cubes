@@ -26,9 +26,7 @@
     <canvas id="renderCanvas"></canvas>
     <div id="elements">
       <div class="block">
-        
         <div id="size">
-          
           <input
             type="range"
             id="inp1"
@@ -38,16 +36,17 @@
             value="1"
             class="styled-slider slider-progress"
           /><a>Size</a>
+          <div id="fps">0</div>
         </div>
-        
       </div>
       <button type="button" id="animbeg">Begin Animation</button>
       <script type="module" src="./script.js"></script>
       <div class="block">
         <div class="input-color-container">
-          <input type="color" id="lightcolor" value="#88c8da" />
+          <input type="color" id="lightcolor" value="#88c8da"/>
         </div>
       </div>
+      <input type="checkbox" id="checkbox1">
     </div>
   </body>
 </html>
