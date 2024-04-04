@@ -1,7 +1,9 @@
 var slider = document.getElementById("inp1");
 var abutton = document.getElementById("animbeg");
 var scolor = document.getElementById("lightcolor");
-var checkbox =  document.getElementById('checkbox1');
+var btn1 = document.getElementById("model1");
+var btn2 = document.getElementById("model2");
+var btn3 = document.getElementById("model3");
 
 const canvas = document.getElementById("renderCanvas"); // Get the canvas element
 var startRenderLoop = function (engine, canvas) {
@@ -158,7 +160,7 @@ const createScene = function () {
       var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
       skyboxMaterial.backFaceCulling = false;
       skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture(
-        "textures/skybox",
+        "textures/skybox/skybox",
         scene
       );
       skyboxMaterial.reflectionTexture.coordinatesMode =
@@ -202,6 +204,20 @@ const createScene = function () {
 
     }
   );
+
+
+  const radioButtons = document.querySelectorAll('input[name="modele"]');
+  btn1.addEventListener("click", () => {
+    let selectedModel;
+    for (const radioButton of radioButtons){
+      if (radioButton.checked){
+        selectedModel = radioButton.value;
+        break;
+      }
+    }
+    console.log(selectedModel.value);
+  });
+
 
   return scene;
 };
