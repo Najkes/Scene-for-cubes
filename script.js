@@ -95,129 +95,129 @@ const createScene = function () {
     scene
   );
 
-  ground.position = new BABYLON.Vector3(0, 0, 0);
-  // Box creation
-  const box = BABYLON.SceneLoader.ImportMesh(
-    "",
-    "models/",
-    "pumpkinBucketCarved.glb",
-    scene,
-    function (newMeshes) {
-      const boxMat = new BABYLON.StandardMaterial("boxMat", scene);
-      boxMat.diffuseTexture = new BABYLON.Texture(
-        "textures/speckles.jpg",
-        scene
-      );
-      newMeshes[0].position.y = parseFloat(ground.position.y) + parseFloat(3);
-      const slider = document.getElementById("inp1");
-      slider.oninput = function () {
-        const box = newMeshes[0];
-        newMeshes[0].scaling.x = this.value;
-        newMeshes[0].scaling.y = this.value;
-        newMeshes[0].scaling.z = this.value;
-        console.log(ground.position.y);
-        newMeshes[0].position.y = 1;
-        newMeshes[0].position.y =
-          parseFloat(newMeshes[0].position.y) + parseFloat(this.value) * 2;
-        newMeshes[0].material = boxMat;
-        console.log(newMeshes[0].position.y);
-        const boxMat = new BABYLON.StandardMaterial("boxMat", scene);
-        var godrays = new BABYLON.VolumetricLightScatteringPostProcess(
-          "godrays",
-          1.0,
-          camera,
-          light0,
-          100,
-          BABYLON.Texture.BILINEAR_SAMPLINGMODE,
-          engine,
-          false
-        );
-        godrays.mesh.material.diffuseTexture.hasAlpha = true;
-        godrays.mesh.scaling = new BABYLON.Vector3(350, 350, 350);
-        // );
-        // godrays.mesh.material.diffuseTexture.hasAlpha = true;
-        godrays.position = light0.position;
-        // godrays.mesh.scaling = new BABYLON.Vector3(350, 350, 350);
-      };
-      const shadowGenerator = new BABYLON.ShadowGenerator(2048, light0);
-      shadowGenerator.addShadowCaster(newMeshes[0]);
-      // shadowGenerator.getShadowMap().renderList.push(newMeshes[0]);
-      shadowGenerator.bias = 0.001;
-      shadowGenerator.normalBias = 0.02;
-      light0.shadowMaxZ = 100;
-      light0.shadowMinZ = 1;
-      shadowGenerator.useContactHardeningShadow = true;
-      shadowGenerator.contactHardeningLightSizeUVRatio = 0.11;
-      shadowGenerator.setDarkness(0.5);
-      ground.receiveShadows = true;
-      newMeshes[0].receiveShadows = true;
-
-      var skybox = BABYLON.MeshBuilder.CreateBox(
-        "skyBox",
-        { size: 1000.0 },
-        scene
-      );
-      var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
-      skyboxMaterial.backFaceCulling = false;
-      skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture(
-        "textures/skybox/skybox",
-        scene
-      );
-      skyboxMaterial.reflectionTexture.coordinatesMode =
-        BABYLON.Texture.SKYBOX_MODE;
-      skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
-      skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
-      skybox.material = skyboxMaterial;
-
-      const framerate = 30;
-      //Animations
-      const anim1 = new BABYLON.Animation(
-        "anim1",
-        "rotation.y",
-        framerate,
-        BABYLON.Animation.ANIMATIONTYPE_FLOAT,
-        BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
-      );
-      const keyframes = [];
-
-      keyframes.push({
-        frame: 0,
-        value: 0,
-      });
-
-      keyframes.push({
-        frame: 30,
-        value: 2 * Math.PI,
-      });
-
-      anim1.setKeys(keyframes);
-      newMeshes[0].animations.push(anim1);
-      document.getElementById("animbeg").onclick = function () {
-        alert("button was clicked");
-        scene.beginAnimation(newMeshes[0], 0, 30, true);
-      };
-      console.log(abutton.value);
-      console.log(box.id);
-
-      let divFps = document.getElementById("fps");
-      divFps.innerHTML = engine.getFps().toFixed() + " fps";
-
-    }
-  );
-
-
   const radioButtons = document.querySelectorAll('input[name="modele"]');
-  btn1.addEventListener("click", () => {
+  const przyciski = document.getElementsByName('modele');
+  przyciski.addEventListener('onchange', () => {
+    // radioButton.addEventListener('click', () => {})
     let selectedModel;
-    for (const radioButton of radioButtons){
-      if (radioButton.checked){
+    for (const radioButton of radioButtons) {
+      ground.position = new BABYLON.Vector3(0, 0, 0);
+      // Box creation
+      
+      selectedModel = radioButton.value
+      console.log(selectedModel);
+      const box = BABYLON.SceneLoader.ImportMesh(
+        "",
+        "models/",
+        selectedModel,
+        scene,
+        function (newMeshes) {
+          const boxMat = new BABYLON.StandardMaterial("boxMat", scene);
+          boxMat.diffuseTexture = new BABYLON.Texture(
+            "textures/speckles.jpg",
+            scene
+          );
+          newMeshes[0].position.y =
+            parseFloat(ground.position.y) + parseFloat(3);
+          const slider = document.getElementById("inp1");
+          slider.oninput = function () {
+            const box = newMeshes[0];
+            newMeshes[0].scaling.x = this.value;
+            newMeshes[0].scaling.y = this.value;
+            newMeshes[0].scaling.z = this.value;
+            console.log(ground.position.y);
+            newMeshes[0].position.y = 1;
+            newMeshes[0].position.y =
+              parseFloat(newMeshes[0].position.y) +
+              parseFloat(this.value) * 2;
+            newMeshes[0].material = boxMat;
+            console.log(newMeshes[0].position.y);
+            const boxMat = new BABYLON.StandardMaterial("boxMat", scene);
+            var godrays = new BABYLON.VolumetricLightScatteringPostProcess(
+              "godrays",
+              1.0,
+              camera,
+              light0,
+              100,
+              BABYLON.Texture.BILINEAR_SAMPLINGMODE,
+              engine,
+              false
+            );
+            godrays.mesh.material.diffuseTexture.hasAlpha = true;
+            godrays.mesh.scaling = new BABYLON.Vector3(350, 350, 350);
+            // );
+            // godrays.mesh.material.diffuseTexture.hasAlpha = true;
+            godrays.position = light0.position;
+            // godrays.mesh.scaling = new BABYLON.Vector3(350, 350, 350);
+          };
+          const shadowGenerator = new BABYLON.ShadowGenerator(2048, light0);
+          shadowGenerator.addShadowCaster(newMeshes[0]);
+          // shadowGenerator.getShadowMap().renderList.push(newMeshes[0]);
+          shadowGenerator.bias = 0.001;
+          shadowGenerator.normalBias = 0.02;
+          light0.shadowMaxZ = 100;
+          light0.shadowMinZ = 1;
+          shadowGenerator.useContactHardeningShadow = true;
+          shadowGenerator.contactHardeningLightSizeUVRatio = 0.11;
+          shadowGenerator.setDarkness(0.5);
+          ground.receiveShadows = true;
+          newMeshes[0].receiveShadows = true;
+
+          var skybox = BABYLON.MeshBuilder.CreateBox(
+            "skyBox",
+            { size: 1000.0 },
+            scene
+          );
+          var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+          skyboxMaterial.backFaceCulling = false;
+          skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture(
+            "textures/skybox/skybox",
+            scene
+          );
+          skyboxMaterial.reflectionTexture.coordinatesMode =
+            BABYLON.Texture.SKYBOX_MODE;
+          skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+          skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+          skybox.material = skyboxMaterial;
+
+          const framerate = 30;
+          //Animations
+          const anim1 = new BABYLON.Animation(
+            "anim1",
+            "rotation.y",
+            framerate,
+            BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE
+          );
+          const keyframes = [];
+
+          keyframes.push({
+            frame: 0,
+            value: 0,
+          });
+
+          keyframes.push({
+            frame: 30,
+            value: 2 * Math.PI,
+          });
+
+          anim1.setKeys(keyframes);
+          newMeshes[0].animations.push(anim1);
+          document.getElementById("animbeg").onclick = function () {
+            alert("button was clicked");
+            scene.beginAnimation(newMeshes[0], 0, 30, true);
+          };
+
+          let divFps = document.getElementById("fps");
+          divFps.innerHTML = engine.getFps().toFixed() + " fps";
+        }
+      );
+      if (radioButton.checked) {
         selectedModel = radioButton.value;
-        break;
+        console.log(radioButton.value);
       }
     }
-    console.log(selectedModel.value);
   });
-
 
   return scene;
 };
